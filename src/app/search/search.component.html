@@ -1,0 +1,87 @@
+<div class="ui text container">
+  <div class="ui segment">
+    <h1 class="ui center aligned header">
+      Search Movies
+    </h1>
+    <div class="ui form" [ngClass]="{'loading': searching, 'error': error}">
+      <div class="field">
+        <div class="ui input icon focus">
+          <input [(ngModel)]="searchText" placeholder="Type movie title..." type="text">
+          <i (click)="search()" class="inverted circular search link icon"></i>
+        </div>
+      </div>
+      <div class="inline fields">
+        <label>Show</label>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input name="plot" tabindex="0" class="hidden" type="radio">
+            <label>Full plot</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input name="plot" tabindex="1" class="hidden" type="radio">
+            <label>Plot in short</label>
+          </div>
+        </div>
+      </div>
+      <div class="ui error message">
+        <div class="header">Action Forbidden</div>
+        <p>You can only sign up for an account once with a given e-mail address.</p>
+      </div>
+      <div class="ui fluid card" *ngIf="movie">
+        <div class="content">
+          <div class="header">{{movie.title}} ({{movie.year}})</div>
+          <div class="meta">
+            <span class="category">{{movie.type | titlecase }} | </span>
+            <span class="category">{{movie.rated}} | </span>
+            <span class="category">{{movie.runtime}} | </span>
+            <span class="category">Released: {{movie.released}}</span>
+            <span class="category right floated"><img [width]="25" [src]="'assets/images/imdblogo.png'" /> {{movie.imdbRating}} ({{movie.imdbVotes}} votes)</span>
+          </div>
+          <div class="description">
+            <div class="ui two column grid">
+              <div class="column">
+                <img class="ui image" [src]="movie.poster">
+              </div>
+              <div class="column">
+                <div class="ui divided list">
+                  <div class="genre item">
+                    <h4 class="header">Genre</h4>
+                    <p class="description" *ngFor="let genre of movie.genre">{{genre}}</p>
+                  </div>
+                  <div class="directors item">
+                    <h4 class="header">Directors</h4>
+                    <p class="description" *ngFor="let director of movie.director">{{director}}</p>
+                  </div>
+                  <div class="writers item">
+                    <h4 class="header">Writers</h4>
+                    <p class="description" *ngFor="let writer of movie.writer">{{writer}}</p>
+                  </div>
+                  <div class="actors item">
+                    <h4 class="header">Actors</h4>
+                    <p class="description" *ngFor="let actor of movie.actors">{{actor}}</p>
+                  </div>
+                  <div class="languages item">
+                    <h4 class="header">Languages</h4>
+                    <p class="description">{{movie.language.join(',')}}</p>
+                  </div>
+                  <div class="awards item">
+                    <h4 class="header">Awards</h4>
+                    <p class="description">{{movie.awards}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>&nbsp;</p>
+            <p>{{movie.plot}}</p>
+            <div class="ratings item">
+              <h4 class="header">Ratings</h4>
+              <p class="description" *ngFor="let rating of movie.ratings">{{rating.source}}: <em class="ui right floated">{{rating.value}}</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
